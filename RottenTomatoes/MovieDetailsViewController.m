@@ -19,6 +19,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    NSURL *lowResUrl =[NSURL URLWithString:self.moviePhotoUrl];
+    [self.moviePhotoView setImageWithURL:lowResUrl];
     NSRange range = [self.moviePhotoUrl rangeOfString:@".*cloudfront.net/"
                                              options:NSRegularExpressionSearch];
     NSString *newUrlString = [self.moviePhotoUrl stringByReplacingCharactersInRange:range
