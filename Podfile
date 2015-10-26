@@ -5,5 +5,6 @@
 
 target 'RottenTomatoes' do
 pod 'AFNetworking', '~> 2.6'
+pod 'JTProgressHUD’
 end
 

@@ -10,6 +10,7 @@
 #import "MoviesTableViewCell.h"
 #import "UIImageView+AFNetworking.h"
 #import "MovieDetailsViewController.h"
+#import "JTProgressHUD.h"
 
 @interface MoviesViewController () <UITableViewDataSource, UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -41,7 +42,7 @@
     [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]
                                   delegate:nil
                              delegateQueue:[NSOperationQueue mainQueue]];
-    
+    [JTProgressHUD show];
     NSURLSessionDataTask *task = [session dataTaskWithRequest:request
                                             completionHandler:^(NSData * _Nullable data,
                                                                 NSURLResponse * _Nullable response,
@@ -55,8 +56,10 @@
                                                     NSLog(@"Response: %@", responseDictionary);
                                                     self.movies = responseDictionary[@"movies"];
                                                     [self.tableView reloadData];
+                                                    [JTProgressHUD hide];
                                                 } else {
                                                     NSLog(@"An error occurred: %@", error.description);
+                                                    [JTProgressHUD hide];
                                                 }
                                             }];
     [task resume];
