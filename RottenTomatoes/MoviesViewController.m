@@ -9,6 +9,7 @@
 #import "MoviesViewController.h"
 #import "MoviesTableViewCell.h"
 #import "UIImageView+AFNetworking.h"
+#import "MovieDetailsViewController.h"
 
 @interface MoviesViewController () <UITableViewDataSource, UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -82,6 +83,13 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [self.tableView deselectRowAtIndexPath:indexPath animated:true];
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    MovieDetailsViewController *movieDetailsViewController = [segue destinationViewController];
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
+    movieDetailsViewController.moviePhotoUrl = self.movies[indexPath.row][@"posters"][@"thumbnail"];
+    movieDetailsViewController.movieSynopsis = self.movies[indexPath.row][@"synopsis"];
 }
 
 

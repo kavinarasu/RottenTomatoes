@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		6C457677B13616A5FDD94664 /* libPods-RottenTomatoes.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BFD45CF6664197CA78CCDF1 /* libPods-RottenTomatoes.a */; };
+		8AB307AB1BDC708D009D778E /* MovieDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AB307AA1BDC708D009D778E /* MovieDetailsViewController.m */; settings = {ASSET_TAGS = (); }; };
 		8ADFA9E11BD6F289000DE7E6 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8ADFA9E01BD6F289000DE7E6 /* main.m */; };
 		8ADFA9E41BD6F289000DE7E6 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8ADFA9E31BD6F289000DE7E6 /* AppDelegate.m */; };
 		8ADFA9E71BD6F289000DE7E6 /* MoviesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8ADFA9E61BD6F289000DE7E6 /* MoviesViewController.m */; };
@@ -19,6 +20,8 @@
 
 /* Begin PBXFileReference section */
 		46F588C6E09C8A6B1AFB35CD /* Pods-RottenTomatoes.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RottenTomatoes.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RottenTomatoes/Pods-RottenTomatoes.debug.xcconfig"; sourceTree = "<group>"; };
+		8AB307A91BDC708D009D778E /* MovieDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MovieDetailsViewController.h; sourceTree = "<group>"; };
+		8AB307AA1BDC708D009D778E /* MovieDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MovieDetailsViewController.m; sourceTree = "<group>"; };
 		8ADFA9DC1BD6F289000DE7E6 /* RottenTomatoes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RottenTomatoes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8ADFA9E01BD6F289000DE7E6 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		8ADFA9E21BD6F289000DE7E6 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -82,6 +85,8 @@
 				8ADFA9E51BD6F289000DE7E6 /* MoviesViewController.h */,
 				8ADFA9E61BD6F289000DE7E6 /* MoviesViewController.m */,
 				8ADFA9E81BD6F289000DE7E6 /* Main.storyboard */,
+				8AB307A91BDC708D009D778E /* MovieDetailsViewController.h */,
+				8AB307AA1BDC708D009D778E /* MovieDetailsViewController.m */,
 				8ADFA9F61BD6F877000DE7E6 /* MoviesTableViewCell.h */,
 				8ADFA9F71BD6F877000DE7E6 /* MoviesTableViewCell.m */,
 				8ADFA9EB1BD6F289000DE7E6 /* Assets.xcassets */,
@@ -229,6 +234,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8AB307AB1BDC708D009D778E /* MovieDetailsViewController.m in Sources */,
 				8ADFA9E71BD6F289000DE7E6 /* MoviesViewController.m in Sources */,
 				8ADFA9E41BD6F289000DE7E6 /* AppDelegate.m in Sources */,
 				8ADFA9F81BD6F877000DE7E6 /* MoviesTableViewCell.m in Sources */,

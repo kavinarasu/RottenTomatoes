@@ -17,11 +17,11 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="sectionIndexBackgroundColor" red="0.43529411759999997" green="0.4431372549" blue="0.47450980390000003" alpha="1" colorSpace="calibratedRGB"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="movieCell" rowHeight="144" id="FzZ-OE-7MU" customClass="MoviesTableViewCell">
-                                        <rect key="frame" x="0.0" y="92" width="320" height="144"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="movieCell" rowHeight="144" id="FzZ-OE-7MU" customClass="MoviesTableViewCell">
+                                        <rect key="frame" x="0.0" y="28" width="320" height="144"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="FzZ-OE-7MU" id="QFs-Eq-F4w">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="143.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="287" height="143.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="D4I-gu-CZr">
@@ -49,6 +49,7 @@
                                             <outlet property="posterImage" destination="IZJ-Xm-iTp" id="Ra0-vR-HMp"/>
                                             <outlet property="synopsisLabel" destination="88b-Tk-Fhs" id="BFN-UE-Cpl"/>
                                             <outlet property="titleLabel" destination="D4I-gu-CZr" id="ekE-3b-fSr"/>
+                                            <segue destination="MiQ-td-ijp" kind="push" id="78P-9R-s9L"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -64,6 +65,36 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="606" y="328"/>
+        </scene>
+        <!--Movie Details View Controller-->
+        <scene sceneID="dUo-uY-YNc">
+            <objects>
+                <viewController id="MiQ-td-ijp" customClass="MovieDetailsViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="IFS-2r-hJ0">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="XhL-tD-oJg">
+                                <rect key="frame" x="0.0" y="63" width="320" height="505"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.80000000000000004" contentMode="scaleToFill" id="5YD-AF-7FS">
+                                <rect key="frame" x="0.0" y="338" width="320" height="230"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            </scrollView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="BeH-WI-pLy"/>
+                    <connections>
+                        <outlet property="moviePhotoView" destination="XhL-tD-oJg" id="Mig-Fr-CVp"/>
+                        <outlet property="synopsisView" destination="5YD-AF-7FS" id="tYm-9x-ENe"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="oUg-fh-rDC" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1015" y="328"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="iQJ-7M-S40">
