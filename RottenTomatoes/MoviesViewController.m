@@ -63,16 +63,17 @@
         
     }];
     if([self isNetworkReachable]) {
-    NSString *urlString = @"https://gist.githubusercontent.com/timothy1ee/d1778ca5b944ed974db0/raw/489d812c7ceeec0ac15ab77bf7c47849f2d1eb2b/gistfile1.json";
-    NSURL *url = [NSURL URLWithString:urlString];
-    NSURLRequest *request = [[NSURLRequest alloc] initWithURL:url];
+        self.networkIssueView.hidden = true;
+        NSString *urlString = @"https://gist.githubusercontent.com/timothy1ee/d1778ca5b944ed974db0/raw/489d812c7ceeec0ac15ab77bf7c47849f2d1eb2b/gistfile1.json";
+        NSURL *url = [NSURL URLWithString:urlString];
+        NSURLRequest *request = [[NSURLRequest alloc] initWithURL:url];
     
-    NSURLSession *session =
-    [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]
+        NSURLSession *session =
+        [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]
                                   delegate:nil
                              delegateQueue:[NSOperationQueue mainQueue]];
-    [JTProgressHUD show];
-    NSURLSessionDataTask *task = [session dataTaskWithRequest:request
+        [JTProgressHUD show];
+        NSURLSessionDataTask *task = [session dataTaskWithRequest:request
                                             completionHandler:^(NSData * _Nullable data,
                                                                 NSURLResponse * _Nullable response,
                                                                 NSError * _Nullable error) {
@@ -94,10 +95,10 @@
                                                 }
                                             }];
             [task resume];
-    } else {
-        self.networkIssueView.hidden = false;
-        [self.refreshControl endRefreshing];
-    }
+        } else {
+            self.networkIssueView.hidden = false;
+            [self.refreshControl endRefreshing];
+        }
 
 }
 
@@ -114,6 +115,9 @@
     return cell;
 }
 
+- (NSCachedURLResponse *)connection:(NSURLConnection *)connection willCacheResponse:(NSCachedURLResponse *)cachedResponse {
+    return nil;
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -122,6 +126,14 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [self.tableView deselectRowAtIndexPath:indexPath animated:true];
+}
+
+- (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender {
+    if([self isNetworkReachable]) {
+        return YES;
+    } else {
+        return NO;
+    }
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
