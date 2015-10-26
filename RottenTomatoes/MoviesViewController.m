@@ -11,12 +11,14 @@
 #import "UIImageView+AFNetworking.h"
 #import "MovieDetailsViewController.h"
 #import "JTProgressHUD.h"
+#import "AFNetworkReachabilityManager.h"
 
 @interface MoviesViewController () <UITableViewDataSource, UITableViewDelegate>
+@property (weak, nonatomic) IBOutlet UIView *networkIssueView;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) NSArray *movies;
 @property (nonatomic, strong) UIRefreshControl *refreshControl;
-
+@property (nonatomic, assign, getter=isNetworkReachable) BOOL networkReachable;
 @end
 
 @implementation MoviesViewController
@@ -26,9 +28,11 @@
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     self.title = @"Movies";
+    self.networkIssueView.hidden = true;
     self.refreshControl = [[UIRefreshControl alloc] init];
     [self.refreshControl addTarget:self action:@selector(onRefresh) forControlEvents:UIControlEventValueChanged];
     [self.tableView insertSubview:self.refreshControl atIndex:0];
+    [self setNetworkReachable:YES];
     [self fetchMovies];
     // Do any additional setup after loading the view, typically from a nib.
 }
@@ -41,7 +45,24 @@
     [self fetchMovies];
 }
 
+
+
 - (void) fetchMovies {
+    [[AFNetworkReachabilityManager sharedManager] startMonitoring];
+    [[AFNetworkReachabilityManager sharedManager] setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
+        switch (status) {
+            case AFNetworkReachabilityStatusReachableViaWWAN:
+            case AFNetworkReachabilityStatusReachableViaWiFi:
+                [self setNetworkReachable:YES];
+                break;
+            case AFNetworkReachabilityStatusNotReachable:
+            default:
+                [self setNetworkReachable:NO];
+                break;
+        }
+        
+    }];
+    if([self isNetworkReachable]) {
     NSString *urlString = @"https://gist.githubusercontent.com/timothy1ee/d1778ca5b944ed974db0/raw/489d812c7ceeec0ac15ab77bf7c47849f2d1eb2b/gistfile1.json";
     NSURL *url = [NSURL URLWithString:urlString];
     NSURLRequest *request = [[NSURLRequest alloc] initWithURL:url];
@@ -72,7 +93,12 @@
                                                     [JTProgressHUD hide];
                                                 }
                                             }];
-    [task resume];
+            [task resume];
+    } else {
+        self.networkIssueView.hidden = false;
+        [self.refreshControl endRefreshing];
+    }
+
 }
 
 // Row display. Implementers should *always* try to reuse cells by setting each cell's reuseIdentifier and querying for available reusable cells with dequeueReusableCellWithIdentifier:
