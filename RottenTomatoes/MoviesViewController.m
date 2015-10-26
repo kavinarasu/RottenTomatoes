@@ -15,6 +15,7 @@
 @interface MoviesViewController () <UITableViewDataSource, UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) NSArray *movies;
+@property (nonatomic, strong) UIRefreshControl *refreshControl;
 
 @end
 
@@ -25,12 +26,19 @@
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     self.title = @"Movies";
+    self.refreshControl = [[UIRefreshControl alloc] init];
+    [self.refreshControl addTarget:self action:@selector(onRefresh) forControlEvents:UIControlEventValueChanged];
+    [self.tableView insertSubview:self.refreshControl atIndex:0];
     [self fetchMovies];
     // Do any additional setup after loading the view, typically from a nib.
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.movies.count;
+}
+
+- (void)onRefresh {
+    [self fetchMovies];
 }
 
 - (void) fetchMovies {
@@ -56,9 +64,11 @@
                                                     NSLog(@"Response: %@", responseDictionary);
                                                     self.movies = responseDictionary[@"movies"];
                                                     [self.tableView reloadData];
+                                                    [self.refreshControl endRefreshing];
                                                     [JTProgressHUD hide];
                                                 } else {
                                                     NSLog(@"An error occurred: %@", error.description);
+                                                    [self.refreshControl endRefreshing];
                                                     [JTProgressHUD hide];
                                                 }
                                             }];
