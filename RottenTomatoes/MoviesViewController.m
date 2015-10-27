@@ -126,7 +126,14 @@
     cell.titleLabel.text = self.filteredMovies[indexPath.row][@"title"];
     cell.synopsisLabel.text = self.filteredMovies[indexPath.row][@"synopsis"];
     NSURL *url = [NSURL URLWithString:self.filteredMovies[indexPath.row][@"posters"][@"thumbnail"]];
-    [cell.posterImage setImageWithURL:url];
+    UIImage *placeImage = [UIImage imageNamed:@"placeholder.png"];
+    NSURLRequest *request = [[NSURLRequest alloc] initWithURL:url];
+    [cell.posterImage setImageWithURLRequest:request placeholderImage:placeImage success:^(NSURLRequest * _Nonnull request, NSHTTPURLResponse * _Nullable response, UIImage * _Nonnull image) {
+        [cell.posterImage setImage:image];
+    } failure:^(NSURLRequest * _Nonnull request, NSHTTPURLResponse * _Nullable response, NSError * _Nonnull error) {
+        
+    }];
+
     return cell;
 }
 
