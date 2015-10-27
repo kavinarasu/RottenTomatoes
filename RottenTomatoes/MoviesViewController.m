@@ -57,6 +57,10 @@
     [self fetchMovies];
 }
 
+- (IBAction)onTapped:(UITapGestureRecognizer *)sender {
+    [self.view endEditing:YES];
+}
+
 - (void) fetchMovies {
     [[AFNetworkReachabilityManager sharedManager] startMonitoring];
     [[AFNetworkReachabilityManager sharedManager] setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
