@@ -80,9 +80,6 @@
                         </subviews>
                         <color key="backgroundColor" red="0.43529411759999997" green="0.4431372549" blue="0.47450980390000003" alpha="1" colorSpace="calibratedRGB"/>
                         <gestureRecognizers/>
-                        <connections>
-                            <outletCollection property="gestureRecognizers" destination="woU-Qp-A7x" appends="YES" id="5pe-pE-MEu"/>
-                        </connections>
                     </view>
                     <navigationItem key="navigationItem" id="AZT-F8-hNz"/>
                     <connections>
@@ -92,11 +89,6 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
-                <tapGestureRecognizer id="woU-Qp-A7x">
-                    <connections>
-                        <action selector="onTapped:" destination="BYZ-38-t0r" id="rgw-F2-QFb"/>
-                    </connections>
-                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="606" y="328"/>
         </scene>

@@ -21,6 +21,7 @@
 @property (strong, nonatomic) NSArray *filteredMovies;
 @property (nonatomic, strong) UIRefreshControl *refreshControl;
 @property (nonatomic, assign, getter=isNetworkReachable) BOOL networkReachable;
+@property (nonatomic, assign, getter=isKeyboardVisible) BOOL keyboardVisible;
 @end
 
 @implementation MoviesViewController
@@ -45,6 +46,15 @@
     [self.refreshControl addTarget:self action:@selector(onRefresh) forControlEvents:UIControlEventValueChanged];
     [self.tableView insertSubview:self.refreshControl atIndex:0];
     [self setNetworkReachable:YES];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardDidShow:)
+                                                 name:UIKeyboardDidShowNotification
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardDidHide:)
+                                                 name:UIKeyboardDidHideNotification
+                                               object:nil];
     [self fetchMovies];
     // Do any additional setup after loading the view, typically from a nib.
 }
@@ -57,8 +67,12 @@
     [self fetchMovies];
 }
 
-- (IBAction)onTapped:(UITapGestureRecognizer *)sender {
-    [self.view endEditing:YES];
+- (void)keyboardDidShow: (NSNotification *) notif{
+    self.keyboardVisible = true;
+}
+
+- (void)keyboardDidHide: (NSNotification *) notif{
+    self.keyboardVisible = false;
 }
 
 - (void) fetchMovies {
@@ -155,6 +169,15 @@
         return YES;
     } else {
         return NO;
+    }
+}
+
+- (BOOL)tableView:(UITableView *)tableView shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath {
+    if([self isKeyboardVisible]) {
+        [self.searchField endEditing:YES];
+        return NO;
+    } else {
+        return YES;
     }
 }
 
