@@ -33,6 +33,7 @@ Here's a walkthrough of implemented user stories:
 <img src='rottenTomatoes.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
+
 Progressview created with [JTProgressHUD for iOS](https://www.cocoacontrols.com/controls/jtprogresshud--2)
 
 ## License
