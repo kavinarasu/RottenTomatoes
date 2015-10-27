@@ -141,6 +141,8 @@
     NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
     movieDetailsViewController.moviePhotoUrl = self.movies[indexPath.row][@"posters"][@"thumbnail"];
     movieDetailsViewController.movieSynopsis = self.movies[indexPath.row][@"synopsis"];
+    MoviesTableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+    movieDetailsViewController.placeHolderImage = [cell.posterImage image];
 }
 
 

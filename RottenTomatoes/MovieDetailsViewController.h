@@ -11,4 +11,5 @@
 @interface MovieDetailsViewController : UIViewController
 @property (strong, nonatomic) NSString *moviePhotoUrl;
 @property (strong, nonatomic) NSString *movieSynopsis;
+@property (strong, nonatomic) UIImage *placeHolderImage;
 @end

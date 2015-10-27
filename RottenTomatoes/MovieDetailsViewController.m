@@ -19,14 +19,18 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    NSURL *lowResUrl =[NSURL URLWithString:self.moviePhotoUrl];
-    [self.moviePhotoView setImageWithURL:lowResUrl];
     NSRange range = [self.moviePhotoUrl rangeOfString:@".*cloudfront.net/"
                                              options:NSRegularExpressionSearch];
     NSString *newUrlString = [self.moviePhotoUrl stringByReplacingCharactersInRange:range
                                                                         withString:@"https://content6.flixster.com/"];
     NSURL *url = [NSURL URLWithString:newUrlString];
-    [self.moviePhotoView setImageWithURL:url];
+    NSURLRequest *request = [[NSURLRequest alloc] initWithURL:url];
+
+    [self.moviePhotoView setImageWithURLRequest:request placeholderImage:self.placeHolderImage success:^(NSURLRequest * _Nonnull request, NSHTTPURLResponse * _Nullable response, UIImage * _Nonnull image) {
+        [self.moviePhotoView setImage:image];
+    } failure:^(NSURLRequest * _Nonnull request, NSHTTPURLResponse * _Nullable response, NSError * _Nonnull error) {
+       
+    }];
     CGSize size = self.synopsisView.bounds.size;
     CGFloat subviewHeight = size.height;
     CGFloat currentViewOffset = 0;
