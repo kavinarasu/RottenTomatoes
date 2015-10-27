@@ -14,14 +14,26 @@
 #import "AFNetworkReachabilityManager.h"
 
 @interface MoviesViewController () <UITableViewDataSource, UITableViewDelegate>
+@property (weak, nonatomic) IBOutlet UITextField *searchField;
 @property (weak, nonatomic) IBOutlet UIView *networkIssueView;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) NSArray *movies;
+@property (strong, nonatomic) NSArray *filteredMovies;
 @property (nonatomic, strong) UIRefreshControl *refreshControl;
 @property (nonatomic, assign, getter=isNetworkReachable) BOOL networkReachable;
 @end
 
 @implementation MoviesViewController
+
+- (IBAction)searchFieldChanged:(UITextField *)sender {
+    NSString *text = [self.searchField text];
+    if([text length] == 0) {
+        self.filteredMovies = self.movies;
+    } else {
+    self.filteredMovies = [self.movies filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"(title contains[cd] %@)", text]];
+    }
+    [self.tableView reloadData];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -38,14 +50,12 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.movies.count;
+    return self.filteredMovies.count;
 }
 
 - (void)onRefresh {
     [self fetchMovies];
 }
-
-
 
 - (void) fetchMovies {
     [[AFNetworkReachabilityManager sharedManager] startMonitoring];
@@ -85,6 +95,7 @@
                                                                                       error:&jsonError];
                                                     NSLog(@"Response: %@", responseDictionary);
                                                     self.movies = responseDictionary[@"movies"];
+                                                    self.filteredMovies = self.movies;
                                                     [self.tableView reloadData];
                                                     [self.refreshControl endRefreshing];
                                                     [JTProgressHUD hide];
@@ -108,9 +119,9 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     MoviesTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"movieCell"];
 
-    cell.titleLabel.text = self.movies[indexPath.row][@"title"];
-    cell.synopsisLabel.text = self.movies[indexPath.row][@"synopsis"];
-    NSURL *url = [NSURL URLWithString:self.movies[indexPath.row][@"posters"][@"thumbnail"]];
+    cell.titleLabel.text = self.filteredMovies[indexPath.row][@"title"];
+    cell.synopsisLabel.text = self.filteredMovies[indexPath.row][@"synopsis"];
+    NSURL *url = [NSURL URLWithString:self.filteredMovies[indexPath.row][@"posters"][@"thumbnail"]];
     [cell.posterImage setImageWithURL:url];
     return cell;
 }
@@ -139,8 +150,8 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     MovieDetailsViewController *movieDetailsViewController = [segue destinationViewController];
     NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
-    movieDetailsViewController.moviePhotoUrl = self.movies[indexPath.row][@"posters"][@"thumbnail"];
-    movieDetailsViewController.movieSynopsis = self.movies[indexPath.row][@"synopsis"];
+    movieDetailsViewController.moviePhotoUrl = self.filteredMovies[indexPath.row][@"posters"][@"thumbnail"];
+    movieDetailsViewController.movieSynopsis = self.filteredMovies[indexPath.row][@"synopsis"];
     MoviesTableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
     movieDetailsViewController.placeHolderImage = [cell.posterImage image];
 }

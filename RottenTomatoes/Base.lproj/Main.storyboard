@@ -13,7 +13,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="144" sectionHeaderHeight="28" sectionFooterHeight="28" id="Y20-E4-pNs">
-                                <rect key="frame" x="0.0" y="3" width="320" height="568"/>
+                                <rect key="frame" x="0.0" y="34" width="320" height="568"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="sectionIndexBackgroundColor" red="0.43529411759999997" green="0.4431372549" blue="0.47450980390000003" alpha="1" colorSpace="calibratedRGB"/>
                                 <prototypes>
@@ -55,7 +55,7 @@
                                 </prototypes>
                             </tableView>
                             <view contentMode="scaleToFill" id="LzY-8Q-7LZ">
-                                <rect key="frame" x="0.0" y="65" width="320" height="24"/>
+                                <rect key="frame" x="0.0" y="96" width="320" height="24"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Network connectivity issue" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="nF0-Hj-7vX">
@@ -68,12 +68,22 @@
                                 </subviews>
                                 <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Search for a movie name" textAlignment="natural" minimumFontSize="17" id="p1r-Zm-wdT">
+                                <rect key="frame" x="5" y="64" width="310" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <action selector="searchFieldChanged:" destination="BYZ-38-t0r" eventType="editingChanged" id="ln0-dJ-gNq"/>
+                                </connections>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" red="0.43529411759999997" green="0.4431372549" blue="0.47450980390000003" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
                     <navigationItem key="navigationItem" id="AZT-F8-hNz"/>
                     <connections>
                         <outlet property="networkIssueView" destination="LzY-8Q-7LZ" id="v0T-SF-5AU"/>
+                        <outlet property="searchField" destination="p1r-Zm-wdT" id="frY-mr-3jE"/>
                         <outlet property="tableView" destination="Y20-E4-pNs" id="HWU-Oa-kRr"/>
                     </connections>
                 </viewController>
